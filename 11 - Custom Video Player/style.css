@@ -19,7 +19,7 @@ body {
 }
 
 .player {
-  max-width:750px;
+  width: 750px;
   border:5px solid rgba(0,0,0,0.2);
   box-shadow:0 0 20px rgba(0,0,0,0.2);
   position: relative;
@@ -52,6 +52,18 @@ body {
   padding: 0;
   cursor:pointer;
   max-width:50px;
+}
+
+.full_screen {
+  background: none;
+  border: 0;
+  line-height: 1;
+  color: white;
+  text-align: center;
+  outline: 0;
+  padding: 0;
+  cursor: pointer;
+  max-width: 50px;
 }
 
 .player__button:focus {

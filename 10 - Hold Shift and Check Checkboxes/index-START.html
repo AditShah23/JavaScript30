@@ -99,6 +99,92 @@
   </div>
 
 <script>
+
+  const checkboxs = document.querySelectorAll('input');
+  let count=0;
+  checkboxs.forEach(checkbox => {
+    checkbox.setAttribute("id", count.toString());
+    count++;
+  });
+
+  let pressCount = 1;
+  let isPressed = false;
+  let oldPressCount = 1;
+  let firstChecked = -1;
+  let secondChecked = -1;
+
+  let firstPressCount = -1;
+  let secondPressCount = -1;
+
+  checkboxs.forEach(checkbox => {
+    checkbox.addEventListener('mousedown', (e) => {
+     // console.log(e);
+     // console.log(e.path[0].id);
+ //     if(!document.getElementById(e.path[0].id).checked) {
+        if(oldPressCount == pressCount && secondChecked == -1) {
+          firstChecked = -1;
+        }
+        if(firstChecked == -1) {
+          firstChecked = e.path[0].id;
+          firstPressCount = pressCount;
+          console.log(`${firstChecked}, ${firstPressCount}`);
+        }
+        else if (secondChecked == -1) {
+          secondChecked = e.path[0].id;
+          secondPressCount = pressCount;
+          oldPressCount = pressCount;
+          console.log(`${secondChecked}, ${secondPressCount}`);
+          if(firstPressCount !== secondPressCount) {
+            if(!document.getElementById(secondChecked).checked) {
+              for(let i = Math.min(firstChecked,secondChecked) ; i<=Math.max(firstChecked, secondChecked); i++)
+              if(i!=secondChecked) 
+               document.getElementById(i).checked = true; 
+            }
+            else {
+              for(let i = Math.min(firstChecked,secondChecked) ; i<=Math.max(firstChecked, secondChecked); i++)
+              if(i!=secondChecked) 
+               document.getElementById(i).checked = false;
+            }
+          }
+        }
+        else {
+          let thirdChecked = e.path[0].id;
+          console.log(thirdChecked);
+          if(!document.getElementById(thirdChecked).checked) {
+            for(let i = Math.min(firstChecked,secondChecked, thirdChecked) ; i<=Math.max(firstChecked, secondChecked, thirdChecked); i++)
+            if(i!=thirdChecked) 
+               document.getElementById(i).checked = true;
+          }
+          else {
+            for(let i = Math.min(firstChecked,secondChecked, thirdChecked) ; i<=Math.max(firstChecked, secondChecked, thirdChecked); i++)
+            if(i!=thirdChecked) 
+               document.getElementById(i).checked = false;
+          }
+        }
+ //     }
+      // else {
+      //   firstChecked = -1;
+      //   secondChecked = -1;
+      // }
+    });
+  });
+
+  addEventListener('keydown', (e) => {
+    if(e.keyCode === 16) {
+      isPressed = true;
+      pressCount++;
+    }
+  });
+
+  addEventListener('keyup', (e) => {
+    if(e.keyCode === 16) {
+      isPressed = false;
+      firstChecked = secondChecked
+      secondChecked = -1;
+      oldPressCount = pressCount;
+    }
+  });
+  
 </script>
 </body>
 </html>
